@@ -1,0 +1,70 @@
+---
+title: "Practice Flexdashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
+---
+
+```{r setup, include=FALSE}
+library(flexdashboard)
+library(tidyverse)
+library(DT)
+glimpse(mtcars)
+```
+#If you have a single page use dashes instead
+
+Sidebar Title {.sidebar}
+===========================
+## About
+
+Interesting things
+
+# Page 1
+
+Column {data-width=650}
+-----------------------------------------------------------------------
+
+### Chart A
+
+```{r}
+mtcars %>%
+  ggplot(aes(mpg, wt, color = factor(vs))) +
+  geom_point() +
+  geom_smooth()
+
+```
+
+> this creates columns in dashboard (just needs to be more than 4 dashes, width changes)
+.tabset adds tabs so a box
+
+Column {data-width=350 .tabset}
+-----------------------------------------------------------------------
+#Changes title of bars above boxes
+
+### Chart B
+
+```{r}
+mtcars %>%
+  ggplot(aes(mpg, wt, color = factor(vs))) +
+  geom_line(aes(group = vs))
+```
+
+# Page 2 {data-icon="fa-calendar"}
+
+Column {data-width=650 .tabset}
+-----------------------------------------------------------------------
+### Chart C
+
+```{r}
+mtcars %>%
+  ggplot(aes(mpg, gear)) +
+  geom_col()
+```
+
+### Table
+```{r table}
+datatable(select(mpg, hwy, displ, model, manufacturer))
+
+
+```
